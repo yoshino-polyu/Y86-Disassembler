@@ -1,3 +1,4 @@
+// 枚举所有的zf, sf, of的所有组合, 然后看看各个组合的结果是什么. 
 #include<bits/stdc++.h>
 using namespace std;
 
