@@ -100,8 +100,10 @@ void O2S(){
 	string s;
 	getline(cin, s);
 	int n = s.size();
+	for(int i = 0; i < n; i += 2)
+		if(s[i] <= 'z' && s[i] >= 'a') s[i] = s[i] - 'a' + 'A';
 	int p = 0;
-	for(int i = 0; i < n; i+=2){
+	for(int i = 0; i < n; i += 2){
 		string a;
 		a = s.substr(i, 2);
 		//cout<<a<<"?"<<endl;
@@ -124,7 +126,7 @@ void O2S(){
 			}
 			if(a[0] == '3') cout<<"$0x"<<b<<" , "<<r[s[i+3]]<<endl;
 			if(a[0] == '4') cout<<r[s[i+2]]<<" , $0x"<<b<<"("<<r[s[i+3]]<<")"<<endl;
-			if(a[0] == '5') cout<<"$0x"<<b<<"("<<r[s[i+2]]<<")"<<" , "<<r[s[i+3]]<<endl;
+			if(a[0] == '5') cout<<"$0x"<<b<<"("<<r[s[i+3]]<<")"<<" , "<<r[s[i+2]]<<endl;
 			i += 18;
 		}
 		if(a[0] == '7' || a[0] == '8'){
