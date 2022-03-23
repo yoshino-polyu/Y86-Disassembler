@@ -100,7 +100,7 @@ void O2S(){
 	string s;
 	getline(cin, s);
 	int n = s.size();
-	for(int i = 0; i < n; i += 2)
+	for(int i = 0; i < n; i++)
 		if(s[i] <= 'z' && s[i] >= 'a') s[i] = s[i] - 'a' + 'A';
 	int p = 0;
 	for(int i = 0; i < n; i += 2){
@@ -143,8 +143,144 @@ void O2S(){
 		}
 	}
 }
-
+void O2S32(){
+	string key, val;
+	key = "00", val = "halt";
+	mp[key] = val;
+	key = "10", val = "nop";
+	mp[key] = val;
+	key = "20", val = "rrmovl";
+	mp[key] = val;
+	key = "21", val = "cmovle";
+	mp[key] = val;
+	key = "22", val = "cmovl";
+	mp[key] = val;
+	key = "23", val = "cmove";
+	mp[key] = val;
+	key = "24", val = "cmovne";
+	mp[key] = val;
+	key = "25", val = "cmovqe";
+	mp[key] = val;
+	key = "26", val = "cmovl";
+	mp[key] = val;
+	key = "30", val = "irmovl";
+	mp[key] = val;
+	key = "40", val = "rmmovl";
+	mp[key] = val;
+	key = "50", val = "mrmovl";
+	mp[key] = val;
+	key = "60", val = "addl";
+	mp[key] = val;
+	key = "61", val = "subl";
+	mp[key] = val;
+	key = "62", val = "andl";
+	mp[key] = val;
+	key = "63", val = "xorl";
+	mp[key] = val;
+	key = "70", val = "jmp";
+	mp[key] = val;
+	key = "71", val = "jle";
+	mp[key] = val;
+	key = "72", val = "jl";
+	mp[key] = val;
+	key = "73", val = "je";
+	mp[key] = val;
+	key = "74", val = "jne";
+	mp[key] = val;
+	key = "75", val = "jge";
+	mp[key] = val;
+	key = "76", val = "jg";
+	mp[key] = val;
+	key = "80", val = "call";
+	mp[key] = val;
+	key = "90", val = "ret";
+	mp[key] = val;
+	key = "A0", val = "pushl";
+	mp[key] = val;
+	key = "B0", val = "popl";
+	mp[key] = val;
+	
+	key = "0", val = "%eax";
+	r[key[0]] = val;
+	key = "1", val = "%ecx";
+	r[key[0]] = val;
+	key = "2", val = "%edx";
+	r[key[0]] = val;
+	key = "3", val = "%ebx";
+	r[key[0]] = val;
+	key = "4", val = "%esp";
+	r[key[0]] = val;
+	key = "5", val = "%ebp";
+	r[key[0]] = val;
+	key = "6", val = "%esi";
+	r[key[0]] = val;
+	key = "7", val = "%edi";
+	r[key[0]] = val;
+	key = "8", val = "%e8";
+	r[key[0]] = val;
+	key = "9", val = "%e9";
+	r[key[0]] = val;
+	key = "A", val = "%e10";
+	r[key[0]] = val;
+	key = "B", val = "%e11";
+	r[key[0]] = val;
+	key = "C", val = "%e12";
+	r[key[0]] = val;
+	key = "D", val = "%e13";
+	r[key[0]] = val;
+	key = "E", val = "%e14";
+	r[key[0]] = val;
+	key = "F", val = " ";
+	r[key[0]] = val;
+	
+	
+	string s;
+	getline(cin, s);
+	int n = s.size();
+	for(int i = 0; i < n; i++)
+		if(s[i] <= 'z' && s[i] >= 'a') s[i] = s[i] - 'a' + 'A';
+	int p = 0;
+	for(int i = 0; i < n; i += 2){
+		string a;
+		a = s.substr(i, 2);
+		//cout<<a<<"?"<<endl;
+		cout<<mp[a]<<" ";
+		if(a[0] == '0' || a[0] == '1' || a[0] == '9') {
+			cout<<endl;
+		}
+		if(a[0] == '2' || a[0] == '6' || a[0] == 'A' || a[0] == 'B'){
+			cout<<r[s[i+2]]<<" "<<r[s[i+3]]<<endl;
+			i+=2;
+		}
+		if(a[0] == '3' || a[0] == '4' || a[0] == '5'){
+			string b;
+			b = s.substr(i+4, 8);
+			reverse(b.begin(), b.end());
+			for(int j = 0; j <= 8; j+=2){
+				char c = b[j];
+				b[j] = b[j+1];
+				b[j+1] = c;
+			}
+			if(a[0] == '3') cout<<"$0x"<<b<<" , "<<r[s[i+3]]<<endl;
+			if(a[0] == '4') cout<<r[s[i+2]]<<" , $0x"<<b<<"("<<r[s[i+3]]<<")"<<endl;
+			if(a[0] == '5') cout<<"$0x"<<b<<"("<<r[s[i+3]]<<")"<<" , "<<r[s[i+2]]<<endl;
+			i += 10;
+		}
+		if(a[0] == '7' || a[0] == '8'){
+			string b;
+			b = s.substr(i+2, 8);
+			reverse(b.begin(), b.end());
+			for(int j = 0; j <= 8; j+=2){
+				char c = b[j];
+				b[j] = b[j+1];
+				b[j+1] = c;
+			}
+			cout<<"$0x"<<b<<endl;
+			i += 8;
+		}
+	}
+}
 int main() {
-	O2S();
+	O2S32();
 	return 0;
 }
